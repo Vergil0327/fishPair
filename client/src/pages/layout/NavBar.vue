@@ -16,22 +16,41 @@
           v-model="showDrawer"
           :mini-variant="shouldMinifyDrawer"
         >
-        <nav-bar-list :navList="navList" />
+        <v-list two-line>
+          <v-list-tile @click.stop="showDialog">
+            <v-list-tile-action>
+              <v-icon>person_add</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>刊登資料</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile @click="">
+            <v-list-tile-action>
+              <v-icon>person</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>個人資料</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </v-navigation-drawer>
     </div>
 
-    <full-screen-modal></full-screen-modal>
+    <full-screen-modal
+      :shouldShowDialog="shouldShowDialog"
+      :onClose="closeDialog"
+      :onSave="closeDialog"
+    ></full-screen-modal>
   </div>
 </template>
 
 <script>
 import FullScreenModal from '@/components/modal/FullScreenModal';
-import NavBarList from './NavBarList';
 
 export default {
   name: 'navBar',
   components: {
-    NavBarList,
     FullScreenModal,
   },
   props: {
@@ -42,10 +61,7 @@ export default {
   data: () => ({
     showDrawer: false,
     isHover: false,
-    navList: [
-      { title: '刊登資料', icon: 'person_add', action: () => console.log('刊登資料') },
-      { title: '個人資料', icon: 'person', action: () => console.log('個人資料') },
-    ],
+    shouldShowDialog: false,
   }),
   computed: {
     shouldMinifyDrawer() {
@@ -60,6 +76,12 @@ export default {
   methods: {
     isMobile(userAgent) {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+    },
+    showDialog() {
+      this.shouldShowDialog = true;
+    },
+    closeDialog() {
+      this.shouldShowDialog = false;
     },
   },
 };
