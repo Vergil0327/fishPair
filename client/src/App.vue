@@ -1,6 +1,6 @@
 <template>
   <v-app id="app" dark>
-    <nav-bar toolbarTitle="<>< Fish Pair" />
+    <nav-bar toolbarTitle="<>< Fisher Pair" />
 
     <v-content>
       <v-container fluid fill-height>
@@ -11,20 +11,20 @@
     </v-content>
 
     <v-footer app fixed>
-      <span>&copy; 2018 🐟FishPair🐟</span>
+      <span>&copy; 2018 🐟FisherPair🐟</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import Hello from '@/components/Hello';
+import HomePage from '@/pages/homePage/HomePage';
 import NavBar from '@/pages/layout/NavBar';
 
 export default {
   name: 'app',
   components: {
     NavBar,
-    Hello,
+    HomePage,
   },
   created() {
     console.log(window.navigator.languages);
