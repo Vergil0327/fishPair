@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify';
+import VueCookie from 'vue-cookie';
 import App from './App';
 import router from './router';
 import '../node_modules/vuetify/dist/vuetify.min.css';
@@ -13,6 +14,7 @@ Vue.config.productionTip = false;
 /* Vue Plugins */
 Vue.use(Vuex);
 Vue.use(Vuetify);
+Vue.use(VueCookie);
 
 /* eslint-disable no-new */
 new Vue({
