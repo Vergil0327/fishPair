@@ -17,7 +17,7 @@
           :mini-variant="shouldMinifyDrawer"
         >
         <v-list two-line>
-          <v-list-tile @click.stop="showDialog">
+          <v-list-tile @click.stop="showDialog('Register')">
             <v-list-tile-action>
               <v-icon>person_add</v-icon>
             </v-list-tile-action>
@@ -25,7 +25,7 @@
               <v-list-tile-title>刊登資料</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile @click="">
+          <v-list-tile @click.stop="showDialog('Login')">
             <v-list-tile-action>
               <v-icon>person</v-icon>
             </v-list-tile-action>
@@ -37,21 +37,26 @@
       </v-navigation-drawer>
     </div>
 
-    <full-screen-modal
-      :shouldShowDialog="shouldShowDialog"
-      :onClose="closeDialog"
-      :onSave="closeDialog"
-    ></full-screen-modal>
+    <register-modal
+      :shouldShowDialog.sync="shouldShowRegister"
+      :onRegister="registerHandler"
+    ></register-modal>
+    <login-modal
+      :shouldShowDialog.sync="shouldShowLogin"
+      :onLogin="loginHandler"
+    ></login-modal>
   </div>
 </template>
 
 <script>
-import FullScreenModal from '@/components/modal/FullScreenModal';
+import RegisterModal from '@/components/modal/RegisterModal';
+import LoginModal from '@/components/modal/LoginModal';
 
 export default {
   name: 'navBar',
   components: {
-    FullScreenModal,
+    RegisterModal,
+    LoginModal,
   },
   props: {
     toolbarTitle: {
@@ -61,7 +66,8 @@ export default {
   data: () => ({
     showDrawer: false,
     isHover: false,
-    shouldShowDialog: false,
+    shouldShowRegister: false,
+    shouldShowLogin: false,
   }),
   computed: {
     shouldMinifyDrawer() {
@@ -77,11 +83,16 @@ export default {
     isMobile(userAgent) {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
     },
-    showDialog() {
-      this.shouldShowDialog = true;
+    showDialog(type) {
+      this[`shouldShow${type}`] = true;
     },
-    closeDialog() {
-      this.shouldShowDialog = false;
+    registerHandler() {
+      console.log('Register');
+      this.shouldShowRegister = false;
+    },
+    loginHandler() {
+      console.log('Login');
+      this.shouldShowLogin = false;
     },
   },
 };
