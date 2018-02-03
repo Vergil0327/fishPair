@@ -39,11 +39,9 @@
 
     <register-modal
       :shouldShowDialog.sync="shouldShowRegister"
-      :onRegister="registerHandler"
     ></register-modal>
     <login-modal
       :shouldShowDialog.sync="shouldShowLogin"
-      :onLogin="loginHandler"
     ></login-modal>
   </div>
 </template>
@@ -85,14 +83,6 @@ export default {
     },
     showDialog(type) {
       this[`shouldShow${type}`] = true;
-    },
-    registerHandler() {
-      console.log('Register');
-      this.shouldShowRegister = false;
-    },
-    loginHandler() {
-      console.log('Login');
-      this.shouldShowLogin = false;
     },
   },
 };

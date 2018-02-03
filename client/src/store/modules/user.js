@@ -2,10 +2,11 @@ import * as types from '../mutation-types';
 
 const initState = {
   userId: null,
-  userName: 'guest',
+  firstName: null,
+  lastName: null,
   email: null,
-  userType: null,
-  featureTags: [],
+  userType: 'guest',
+  userTags: [],
   address: {
     postalCode: null,
     country: 'TW',
@@ -25,23 +26,26 @@ const initState = {
 };
 
 const getters = {
+  isLogin: state => state.userId !== null,
+  userType: state => state.userType,
 };
 
 const actions = {
-  userLogin({ commit }, payload) {
-    console.log(commit, payload);
-    commit(types.PUSH_USER_STATE);
-  },
 
   userLogout({ commit }, payload) {
     console.log(commit, payload);
     commit(types.CLEAR_USER_STATE);
+    // Clear Cookies in component
+  },
+
+  fetchState({ commit }, payload) {
+    commit(types.PUSH_USER_STATE, payload);
   },
 };
 
 const mutations = {
   [types.PUSH_USER_STATE](state, payload) {
-    Object.keys(state).forEach((key) => {
+    Object.keys(payload).forEach((key) => {
       state[key] = payload[key];
     });
   },

@@ -1,23 +1,31 @@
+import jwt from 'jsonwebtoken';
+import authApi from '@/api/auth';
 import * as types from '../mutation-types';
-import authApi from '../../api/auth';
 
 const initState = {
-  auth: false,
+  auth: null,
 };
 
 const getters = {
 };
 
 const actions = {
-  register({ commit, dispatch }, payload) {
-    console.log('register', payload);
+  signUp({ commit, dispatch }, userProfile) {
+    console.log('register', userProfile);
     return authApi.register(
-      payload,
-      () => {
-        commit(types.REGISTER);
-        dispatch('registration/login');
+      userProfile,
+      ({ data }) => {
+        const decodeAuth = jwt.decode(data.token);
+        const { password, ...restUserInfo } = userProfile;
+        const userState = { ...restUserInfo, userId: decodeAuth.userId };
+        commit(types.LOG_IN, data.token);
+        console.log('Debug registration/signup', userState);
+        dispatch('user/fetchState', userState, { root: true });
       },
-      err => console.error(err),
+      (err) => {
+        console.error(err);
+        return err;
+      },
     );
   },
 
@@ -25,29 +33,27 @@ const actions = {
     console.log('login');
     return authApi.login(
       payload,
-      () => {
-        commit(types.REGISTER);
-        dispatch('user/userLogin');
+      ({ auth, ...userProfile }) => {
+        commit(types.LOG_IN, auth);
+        dispatch('user/fetchState', userProfile);
       },
       err => console.error(err),
     );
   },
 
-  logout({ dispatch }, payload) {
+  logout({ commit, dispatch }) {
     console.log('logout');
-    return authApi.logout(
-      payload,
-      () => {
-        dispatch('user/userLogout');
-      },
-      err => console.error(err),
-    );
+    commit(types.LOG_OUT);
+    dispatch('user/userLogout');
   },
 };
 
 const mutations = {
-  [types.REGISTER](state) {
-    state.auth = true;
+  [types.LOG_IN](state, payload) {
+    state.auth = payload;
+  },
+  [types.LOG_OUT](state) {
+    state.auth = null;
   },
 };
 

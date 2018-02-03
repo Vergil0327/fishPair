@@ -22,25 +22,38 @@
                 </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-text-field
-                label="First Name"
-                required
-              ></v-text-field>
+                  v-model="firstName"
+                  label="First Name"
+                  required
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-text-field
-                  label="Last Name"
+                  v-model="lastName"
+                    label="Last Name"
+                    required
+                  ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="email"
+                  label="Email"
+                  hint="example of persistent helper text"
                   required
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Email" hint="example of persistent helper text" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field label="Password" type="password" required></v-text-field>
+                <v-text-field
+                  v-model="password"
+                  label="Password"
+                  type="password"
+                  required
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-select
-                  v-if="userType === 'consultant'"
+                  v-if="type === 'consultant'"
+                  v-model="userTags"
                   label="Feature Tags"
                   multiple
                   autocomplete
@@ -48,7 +61,8 @@
                   :items="['Certificate', 'Law', 'Government-related', 'Finance', 'Equipment', 'International Law']"
                 ></v-select>
                 <v-select
-                  v-else-if="userType === 'fisher'"
+                  v-else-if="type === 'fisher'"
+                  v-model="userTags"
                   label="Feature Tags"
                   multiple
                   autocomplete
@@ -56,14 +70,17 @@
                   :items="['Need Certificate', 'Law Help', 'Government-related', 'Finance', 'Equipment', 'International Law']"
                 ></v-select>
               </v-flex>
+              <v-alert v-model="alert" outline color="error" icon="warning" :value="true">
+                {{ errorMessage }}
+              </v-alert>
             </v-layout>
+            <small>* indicates required field</small>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="closeModal">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="onRegister">Register</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="registerHandler">Register</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -80,13 +97,16 @@ export default {
       type: Boolean,
       default: false,
     },
-    onRegister: {
-      type: Function,
-      required: true,
-    },
   },
   data: () => ({
+    firstName: '1',
+    lastName: '2',
+    email: `${Date.now()}@test`,
+    password: '3',
     type: 'guest',
+    userTags: [],
+    alert: false,
+    errorMessage: '',
   }),
   watch: {
     userType(nextValue, prevValue) {
@@ -99,14 +119,53 @@ export default {
     ]),
   },
   methods: {
+    ...mapActions('registration', [
+      'signUp',
+    ]),
     ...mapActions('user', [
       'fetchState',
     ]),
     closeModal() {
+      this.alert = false;
+      this.errorMessage = '';
       this.$emit('update:shouldShowDialog', false);
+    },
+    registerHandler() {
+      const userSignUpData = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        password: this.password,
+        userType: this.type,
+        userTags: this.userTags,
+      };
+
+      console.log(userSignUpData);
+      this.signUp(userSignUpData)
+        .then((err) => {
+          if (err) throw err;
+          Object.entries(userSignUpData).forEach(([k, v]) => {
+            this.$cookie.set(k, v, { expires: 1 });
+          });
+        })
+        .then(() => {
+          this.clearState();
+          this.$emit('update:shouldShowDialog', false);
+          // this.$router.push('/');
+        })
+        .catch((err) => {
+          console.log(err);
+          this.alert = true;
+          this.errorMessage = err.message;
+        });
     },
     chooseUserType(userType) {
       this.fetchState({ userType });
+    },
+    clearState() {
+      Object.keys(this.$data).forEach((field) => {
+        this[field] = '';
+      });
     },
   },
 };
