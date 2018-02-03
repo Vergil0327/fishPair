@@ -205,7 +205,7 @@ export default {
   },
   watch: {
     isLogin(value) {
-      this.didClientChooseType = !value;
+      this.$emit('update:didClientChooseType', !value);
     },
   },
   methods: {
