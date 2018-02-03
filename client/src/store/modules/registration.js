@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import authApi from '@/api/auth';
+import jwt from 'jsonwebtoken';
 import * as types from '../mutation-types';
 
 const initState = {
@@ -35,14 +35,25 @@ const actions = {
   },
 
   login({ commit, dispatch }, payload) {
-    console.log('login');
     return authApi.login(
       payload,
-      ({ auth, ...userProfile }) => {
-        commit(types.LOG_IN, auth);
-        dispatch('user/fetchState', userProfile);
+      ({ data: { token, data: { ...userData } } }) => {
+        const decodeAuth = jwt.decode(token);
+        const userState = {
+          ...userData,
+          userId: decodeAuth.userId,
+          isLogin: true,
+          loginAt: new Date(),
+        };
+
+        // console.log('login userState', userState);
+        commit(types.LOG_IN, token);
+        dispatch('user/fetchState', userState, { root: true });
       },
-      err => console.error(err),
+      (err) => {
+        console.error(err);
+        return err;
+      },
     );
   },
 

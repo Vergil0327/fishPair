@@ -24,6 +24,7 @@
                 <v-text-field
                   v-model="firstName"
                   label="First Name"
+                  autofocus
                   required
                 ></v-text-field>
               </v-flex>
@@ -70,11 +71,11 @@
                   :items="['Need Certificate', 'Law Help', 'Government-related', 'Finance', 'Equipment', 'International Law']"
                 ></v-select>
               </v-flex>
-              <v-alert v-model="alert" outline color="error" icon="warning" :value="true">
-                {{ errorMessage }}
-              </v-alert>
             </v-layout>
             <small>* indicates required field</small>
+            <v-alert v-model="alert" outline color="error" icon="warning" :value="true">
+              {{ errorMessage }}
+            </v-alert>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -142,7 +143,6 @@ export default {
         userTags: this.userTags,
       };
 
-      console.log(userSignUpData);
       this.signUp(userSignUpData)
         .then((err) => {
           if (err) throw err;

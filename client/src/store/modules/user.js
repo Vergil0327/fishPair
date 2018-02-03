@@ -5,7 +5,7 @@ const initState = () => ({
   firstName: null,
   lastName: null,
   email: null,
-  userType: 'guest',
+  userType: null,
   userTags: [],
   address: {
     postalCode: null,

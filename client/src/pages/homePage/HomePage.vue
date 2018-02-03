@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Jumbotron from '@/components/parallax/Jumbotron';
 
 export default {
@@ -56,6 +56,16 @@ export default {
       slogan: 'Are You A Fisher, or A Consultant ?',
       didClientChooseType: false,
     };
+  },
+  coumputed: {
+    ...mapGetters('user', [
+      'isLogin',
+    ]),
+  },
+  watch: {
+    isLogin(value) {
+      this.didClientChooseType = !value;
+    },
   },
   methods: {
     ...mapActions('user', [

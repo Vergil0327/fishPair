@@ -29,7 +29,8 @@
           </v-list-tile>
           <v-list-tile 
             v-if="!isLogin"
-            @click.stop="showDialog('Login')">
+            @click.stop="showDialog('Login')"
+          >
             <v-list-tile-action>
               <v-icon>person</v-icon>
             </v-list-tile-action>
@@ -37,7 +38,10 @@
               <v-list-tile-title>Login</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile @click.stop="logoutHandler">
+          <v-list-tile
+            v-if="isLogin"
+            @click.stop="logoutHandler"
+          >
             <v-list-tile-action>
               <v-icon>person_outline</v-icon>
             </v-list-tile-action>
@@ -112,7 +116,6 @@ export default {
       this[`shouldShow${type}`] = true;
     },
     logoutHandler() {
-      console.log('isLogin', this.isLogin);
       if (!this.isLogin) return;
 
       Object.keys(this.userState).forEach((key) => {
