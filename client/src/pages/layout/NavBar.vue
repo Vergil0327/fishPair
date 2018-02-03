@@ -17,20 +17,32 @@
           :mini-variant="shouldMinifyDrawer"
         >
         <v-list two-line>
-          <v-list-tile @click.stop="showDialog('Register')">
+          <v-list-tile
+            v-if="!isLogin"
+            @click.stop="showDialog('Register')">
             <v-list-tile-action>
               <v-icon>person_add</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>刊登資料</v-list-tile-title>
+              <v-list-tile-title>Signup</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile @click.stop="showDialog('Login')">
+          <v-list-tile 
+            v-if="!isLogin"
+            @click.stop="showDialog('Login')">
             <v-list-tile-action>
               <v-icon>person</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>個人資料</v-list-tile-title>
+              <v-list-tile-title>Login</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile @click.stop="logoutHandler">
+            <v-list-tile-action>
+              <v-icon>person_outline</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -47,6 +59,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import RegisterModal from '@/components/modal/RegisterModal';
 import LoginModal from '@/components/modal/LoginModal';
 
@@ -68,6 +81,13 @@ export default {
     shouldShowLogin: false,
   }),
   computed: {
+    ...mapGetters('register', [
+      'logout',
+    ]),
+    ...mapGetters('user', [
+      'isLogin',
+      'userState',
+    ]),
     shouldMinifyDrawer() {
       return this.isMobile(window.navigator.userAgent) ? false : !this.isHover;
     },
@@ -78,11 +98,28 @@ export default {
     },
   },
   methods: {
+    ...mapActions('user', [
+      'clearState',
+    ]),
     isMobile(userAgent) {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
     },
     showDialog(type) {
+      if (type === 'Login' && this.isLogin) {
+        this[`shouldShow${type}`] = false;
+        return;
+      }
       this[`shouldShow${type}`] = true;
+    },
+    logoutHandler() {
+      console.log('isLogin', this.isLogin);
+      if (!this.isLogin) return;
+
+      Object.keys(this.userState).forEach((key) => {
+        this.$cookie.delete(key);
+      });
+      this.clearState();
+      this.$router.push('/');
     },
   },
 };

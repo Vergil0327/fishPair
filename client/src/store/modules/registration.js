@@ -11,19 +11,24 @@ const getters = {
 
 const actions = {
   signUp({ commit, dispatch }, userProfile) {
-    console.log('register', userProfile);
     return authApi.register(
       userProfile,
       ({ data }) => {
         const decodeAuth = jwt.decode(data.token);
         const { password, ...restUserInfo } = userProfile;
-        const userState = { ...restUserInfo, userId: decodeAuth.userId };
+        const userState = {
+          ...restUserInfo,
+          userId: decodeAuth.userId,
+          isLogin: true,
+          loginAt: new Date(),
+        };
+
         commit(types.LOG_IN, data.token);
-        console.log('Debug registration/signup', userState);
         dispatch('user/fetchState', userState, { root: true });
       },
       (err) => {
         console.error(err);
+        console.log(err.response);
         return err;
       },
     );
@@ -42,9 +47,8 @@ const actions = {
   },
 
   logout({ commit, dispatch }) {
-    console.log('logout');
     commit(types.LOG_OUT);
-    dispatch('user/userLogout');
+    dispatch('user/clearState');
   },
 };
 

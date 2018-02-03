@@ -1,6 +1,6 @@
 import * as types from '../mutation-types';
 
-const initState = {
+const initState = () => ({
   userId: null,
   firstName: null,
   lastName: null,
@@ -21,21 +21,20 @@ const initState = {
     geolocation: [null, null], // [latitude, longitude]
   },
   pairStoryId: null,
-  isLogin: false,
   loginAt: null,
-};
+  isLogin: false,
+});
 
 const getters = {
-  isLogin: state => state.userId !== null,
+  isLogin: state => state.isLogin,
   userType: state => state.userType,
+  userState: state => state,
 };
 
 const actions = {
 
-  userLogout({ commit }, payload) {
-    console.log(commit, payload);
+  clearState({ commit }) {
     commit(types.CLEAR_USER_STATE);
-    // Clear Cookies in component
   },
 
   fetchState({ commit }, payload) {
@@ -59,7 +58,7 @@ const mutations = {
 
 export default {
   namespaced: true,
-  state: () => initState,
+  state: initState,
   getters,
   actions,
   mutations,

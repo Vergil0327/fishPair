@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import HomePage from '@/pages/homePage/HomePage';
 import NavBar from '@/pages/layout/NavBar';
 
@@ -26,9 +27,33 @@ export default {
     NavBar,
     HomePage,
   },
+  computed: {
+    ...mapGetters('user', [
+      'userState',
+    ]),
+  },
+  methods: {
+    ...mapActions('user', [
+      'fetchState',
+    ]),
+    getUserStateField() {
+      return Object.keys(this.userState);
+    },
+  },
   created() {
     console.log(window.navigator.languages);
     console.log(window.navigator.language);
+    const userStateFields = this.getUserStateField();
+
+    const isUserLogin = this.$cookie.get('isLogin');
+    if (isUserLogin) {
+      const loginUserState =
+        userStateFields
+          .map(field => [field, JSON.parse(this.$cookie.get(field))])
+          .reduce((rslt, [field, value]) => ({ ...rslt, [field]: value }), {});
+
+      this.fetchState(loginUserState);
+    }
   },
 };
 </script>

@@ -116,6 +116,8 @@ export default {
   computed: {
     ...mapGetters('user', [
       'userType',
+      'userState',
+      'isLogin',
     ]),
   },
   methods: {
@@ -144,14 +146,15 @@ export default {
       this.signUp(userSignUpData)
         .then((err) => {
           if (err) throw err;
-          Object.entries(userSignUpData).forEach(([k, v]) => {
-            this.$cookie.set(k, v, { expires: 1 });
+
+          Object.entries(this.userState).forEach(([k, v]) => {
+            this.$cookie.set(k, JSON.stringify(v), { expires: 1 });
           });
         })
         .then(() => {
           this.clearState();
           this.$emit('update:shouldShowDialog', false);
-          // this.$router.push('/');
+          this.$router.push('/');
         })
         .catch((err) => {
           console.log(err);
