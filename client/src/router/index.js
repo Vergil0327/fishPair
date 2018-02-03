@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '@/components/Hello';
+
+import HomePage from '@/pages/homePage/HomePage';
+import Profile from '@/pages/user/Profile';
 
 Vue.use(Router);
 
@@ -9,28 +11,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello,
-    },
-    {
-      path: '/register',
-      name: 'Hello',
-      component: Hello,
+      name: 'HomePage',
+      component: HomePage,
     },
     {
       path: '/user/:id',
-      name: 'Hello',
-      component: Hello,
-      children: [
-        {
-          path: 'profile',
-          component: Hello,
-        },
-        {
-          path: 'profile/edit',
-          component: Hello,
-        },
-      ],
+      name: 'UserProfile',
+      component: Profile,
+      props: true,
     },
   ],
 });
