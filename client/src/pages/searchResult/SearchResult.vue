@@ -28,8 +28,9 @@
                 <div v-if="user.species">Fishing Species: {{ user.species }}</div>
                 <div v-if="user.organization_name">Organization: {{ user.organization_name }}</div>
                 <div v-if="user.fip_stage">Fishery Improvement Project: {{ user.fip_stage }}</div>
-                <div v-if="user.overview">Fishery Improvement Project Overview: {{ user.overview }}</div>
                 <div v-if="user.website">Fishery Improvement Project Website: {{ user.website }}</div>
+                <br>
+                <div v-if="user.overview">Fishery Improvement Project Overview: {{ user.overview }}</div>
               </div>
             </v-card-title>
             <v-card-media
@@ -87,7 +88,17 @@ export default {
       'searchResults',
     ]),
     userCarouselItems() {
-      return [...this.searchResults.registerData, ...this.searchResults.unRegisterData];
+      let caroucelItems = [];
+
+      if (this.searchResults.registerData) {
+        caroucelItems = [...caroucelItems, ...this.searchResults.registerData];
+      }
+
+      if (this.searchResults.unRegisterData) {
+        caroucelItems = [...caroucelItems, ...this.searchResults.unRegisterData];
+      }
+
+      return caroucelItems;
     },
   },
 };

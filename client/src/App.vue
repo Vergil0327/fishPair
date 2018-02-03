@@ -52,9 +52,10 @@ export default {
     if (isUserLogin) {
       const loginUserState =
         userStateFields
-          .map(field => [field, JSON.parse(this.$cookie.get(field))])
+          .map((field) => [field, JSON.parse(this.$cookie.get(field))])
           .reduce((rslt, [field, value]) => ({ ...rslt, [field]: value }), {});
 
+      console.log(loginUserState);
       this.fetchState(loginUserState);
     }
   },

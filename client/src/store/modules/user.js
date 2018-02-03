@@ -7,20 +7,19 @@ const initState = () => ({
   email: null,
   userType: null,
   userTags: [],
-  address: {
-    postalCode: null,
-    country: 'TW',
-    province: 'taiwan',
-    city: null,
-    street: null,
-  },
-  meta: {
-    userAgent: window.navigator.userAgent,
-    locale: window.navigator.language,
-    ipAddress: null,
-    geolocation: [null, null], // [latitude, longitude]
-  },
-  pairStoryId: null,
+  // address: {
+  //   postalCode: null,
+  //   country: 'TW',
+  //   province: 'taiwan',
+  //   city: null,
+  //   street: null,
+  // },
+  // meta: {
+  //   userAgent: window.navigator.userAgent,
+  //   locale: window.navigator.language,
+  //   ipAddress: null,
+  //   geolocation: [null, null], // [latitude, longitude]
+  // },
   loginAt: null,
   isLogin: false,
 });
