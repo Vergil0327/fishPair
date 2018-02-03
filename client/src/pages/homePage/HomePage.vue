@@ -227,7 +227,15 @@ export default {
 
           console.log(payload);
         })
+        .then(() => {
+          this.clearSearch();
+          this.$router.push('/search/results');
+        })
         .catch(error => console.error(error));
+    },
+    clearSearch() {
+      this.searchInput = '';
+      this.searchCondition = '';
     },
   },
 };
