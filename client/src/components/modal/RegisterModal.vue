@@ -24,6 +24,9 @@
                 <v-text-field
                   v-model="firstName"
                   label="First Name"
+                  :error-messages="errors.collect('First Name')"
+                  v-validate="'required'"
+                  data-vv-name="First Name"
                   autofocus
                   required
                 ></v-text-field>
@@ -31,15 +34,20 @@
               <v-flex xs12 sm6 md4>
                 <v-text-field
                   v-model="lastName"
-                    label="Last Name"
-                    required
-                  ></v-text-field>
+                  label="Last Name"
+                  :error-messages="errors.collect('Last Name')"
+                  v-validate="'required'"
+                  data-vv-name="Last Name"
+                  required
+                ></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
                   v-model="email"
-                  label="Email"
-                  hint="example of persistent helper text"
+                  label="E-mail"
+                  :error-messages="errors.collect('E-mail')"
+                  v-validate="'required|email'"
+                  data-vv-name="E-mail"
                   required
                 ></v-text-field>
               </v-flex>
@@ -48,6 +56,9 @@
                   v-model="password"
                   label="Password"
                   type="password"
+                  :error-messages="errors.collect('Password')"
+                  v-validate="'required'"
+                  data-vv-name="Password"
                   required
                 ></v-text-field>
               </v-flex>
@@ -59,16 +70,26 @@
                   multiple
                   autocomplete
                   chips
-                  :items="['Certificate', 'Law', 'Government-related', 'Finance', 'Equipment', 'International Law']"
-                ></v-select>
-                <v-select
-                  v-else-if="type === 'fisher'"
-                  v-model="userTags"
-                  label="Feature Tags"
-                  multiple
-                  autocomplete
-                  chips
-                  :items="['Need Certificate', 'Law Help', 'Government-related', 'Finance', 'Equipment', 'International Law']"
+                  :items="[
+                    'sustainability assessment',
+                    'fisheries management',
+                    'environmental assessment',
+                    'fisheries policy development',
+                    'fisheries economics',
+                    'fisheries resource assessment',
+                    'fisheries resource survey',
+                    'fisheries strategic planning',
+                    'data collection',
+                    'bycatch management',
+                    'harvest strategies',
+                    'third-party certification',
+                    'fishery improvement gap analysis',
+                    'environmental impacts',
+                    'industrial fisheries',
+                    'data sampling programs',
+                    'marine consultancy',
+                    'ecosystem modelling',
+                  ]"
                 ></v-select>
               </v-flex>
             </v-layout>
@@ -92,6 +113,9 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
+  $_veeValidate: {
+    validator: 'new', // give me a new validator each time.
+  },
   name: 'registerModal',
   props: {
     shouldShowDialog: {
@@ -100,11 +124,11 @@ export default {
     },
   },
   data: () => ({
-    firstName: '1',
-    lastName: '2',
-    email: `${Date.now()}@test`,
-    password: '3',
-    type: 'guest',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    type: null,
     userTags: [],
     alert: false,
     errorMessage: '',

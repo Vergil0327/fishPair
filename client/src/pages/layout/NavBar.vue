@@ -40,6 +40,18 @@
           </v-list-tile>
           <v-list-tile
             v-if="isLogin"
+            @click.stop="$router.push(`/user/${userState.userId}`)"
+          >
+            <v-list-tile-action>
+              <v-icon>mode_edit</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Edit Profile</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+          <v-list-tile
+            v-if="isLogin"
             @click.stop="logoutHandler"
           >
             <v-list-tile-action>
@@ -49,7 +61,6 @@
               <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-        </v-list>
       </v-navigation-drawer>
     </div>
 

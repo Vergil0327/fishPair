@@ -38,8 +38,8 @@
               v-model="email"
               label="E-mail"
               :error-messages="errors.collect('email')"
-              v-validate="'required|password'"
-              data-vv-name="password"
+              v-validate="'required|email'"
+              data-vv-name="email"
               required
             ></v-text-field>
           </v-flex>
@@ -134,6 +134,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   $_veeValidate: {
     validator: 'new', // give me a new validator each time.
@@ -226,6 +228,9 @@ export default {
     },
   }),
   computed: {
+    ...mapGetters('user', [
+      'isLogin',
+    ]),
     fishingAreasHint() {
       if (this.userType === 'fisher') return this.hint.fishingAreas.fisher;
 
@@ -245,6 +250,9 @@ export default {
       console.log(this.$validator);
       this.$validator.reset();
     },
+  },
+  created() {
+    if (!this.isLogin) this.$router.push('/');
   },
 };
 </script>
