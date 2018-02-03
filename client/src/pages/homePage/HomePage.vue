@@ -19,7 +19,17 @@
               <v-card-title primary-title>
                 <div>
                   <h3 class="headline text-xs-center mb-0">Fisher</h3>
-                  <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+                  <div>
+                    <v-flex xs12>
+                      <v-icon>check</v-icon><span>I need MSC certificate application assistance</span>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-icon>check</v-icon><span>I need suggestion on fishery practice</span>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-icon>check</v-icon><span>I can offer fishery experience</span>
+                    </v-flex>
+                  </div>
                 </div>
               </v-card-title>
             </v-card>
@@ -30,7 +40,17 @@
               <v-card-title primary-title>
                 <div>
                   <h3 class="headline text-xs-center mb-0">Consultant</h3>
-                  <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+                  <div>
+                    <v-flex xs12>
+                      <v-icon>check</v-icon><span>I do research on fishery</span>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-icon>check</v-icon><span>I can offer MSC certificate application assistance</span>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-icon>check</v-icon><span>I participate in FIP</span>
+                    </v-flex>
+                  </div>
                 </div>
               </v-card-title>
             </v-card>
@@ -50,11 +70,17 @@ export default {
   components: {
     Jumbotron,
   },
+  props: {
+    didClientChooseType: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       msg: 'Search Bar Goes Here',
       slogan: 'Are You A Fisher, or A Consultant ?',
-      didClientChooseType: false,
+      // didClientChooseType: false,
     };
   },
   coumputed: {
@@ -73,7 +99,8 @@ export default {
     ]),
     choose(clientType) {
       this.fetchState({ userType: clientType });
-      this.didClientChooseType = true;
+      // this.didClientChooseType = true;
+      this.$emit('update:didClientChooseType', true);
     },
   },
 };

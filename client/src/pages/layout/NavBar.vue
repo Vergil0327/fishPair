@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar app fixed clipped-left>
+    <v-toolbar class="onHover" @click="backToHome" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="showDrawer = !showDrawer"></v-toolbar-side-icon>
       <v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
     </v-toolbar>
@@ -77,6 +77,9 @@ export default {
     toolbarTitle: {
       type: String,
     },
+    didClientChooseType: {
+      type: Boolean,
+    },
   },
   data: () => ({
     showDrawer: false,
@@ -124,7 +127,18 @@ export default {
       this.clearState();
       this.$router.push('/');
     },
+    backToHome() {
+      this.$emit('update:didClientChooseType', false);
+      this.$router.push('/');
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .onHover {
+    cursor: pointer;
+  }
+</style>
+
 

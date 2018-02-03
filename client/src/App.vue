@@ -1,11 +1,11 @@
 <template>
   <v-app id="app" dark>
-    <nav-bar toolbarTitle="<>< Fisher Pair" />
+    <nav-bar :didClientChooseType.sync="didClientChooseType" toolbarTitle="<>< Fisher Pair" />
 
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-          <router-view></router-view>
+          <router-view :didClientChooseType.sync="didClientChooseType"></router-view>
         </v-layout>
       </v-container>
     </v-content>
@@ -27,6 +27,9 @@ export default {
     NavBar,
     HomePage,
   },
+  data: () => ({
+    didClientChooseType: false,
+  }),
   computed: {
     ...mapGetters('user', [
       'userState',
