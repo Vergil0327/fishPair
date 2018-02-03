@@ -2,7 +2,7 @@
   <v-container
     class="text-xs-center" fluid
   >
-    <h1>{{ msg }}</h1>
+    <h1 v-if="didClientChooseType">{{ msg }}</h1>
     <v-layout v-if="didClientChooseType" row>
       <v-flex xs9 @keyup.enter="submitHandler">
         <v-select
@@ -147,25 +147,25 @@ export default {
           { text: 'Yellowtail', value: 'Yellowtail' },
         ],
         fishingAreas: [
-          { value: 18, text: 'Arctic Sea' },
-          { value: 21, text: 'Atlantic Northwest' },
-          { value: 27, text: 'Atlantic Northeast' },
-          { value: 31, text: 'Atlantic Western Central' },
-          { value: 34, text: 'Atlantic Eastern Central' },
-          { value: 37, text: 'Mediterranean and Black Sea' },
-          { value: 41, text: 'Atlantic Southwest' },
-          { value: 47, text: 'Atlantic Southeast' },
-          { value: 48, text: 'Atlantic Antarctic' },
-          { value: 51, text: 'Indian Ocean Western' },
-          { value: 57, text: 'Indian Ocean Eastern' },
-          { value: 58, text: 'Indian Ocean Antarctic and Southern' },
-          { value: 61, text: 'Pacific Northwest' },
-          { value: 67, text: 'Pacific Northeast' },
-          { value: 71, text: 'Pacific Western Central' },
-          { value: 77, text: 'Pacific Eastern Central' },
-          { value: 81, text: 'Pacific Southwest' },
-          { value: 87, text: 'Pacific Southeast' },
-          { value: 88, text: 'Pacific Antarctic' },
+          { value: '18', text: 'Arctic Sea' },
+          { value: '21', text: 'Atlantic Northwest' },
+          { value: '27', text: 'Atlantic Northeast' },
+          { value: '31', text: 'Atlantic Western Central' },
+          { value: '34', text: 'Atlantic Eastern Central' },
+          { value: '37', text: 'Mediterranean and Black Sea' },
+          { value: '41', text: 'Atlantic Southwest' },
+          { value: '47', text: 'Atlantic Southeast' },
+          { value: '48', text: 'Atlantic Antarctic' },
+          { value: '51', text: 'Indian Ocean Western' },
+          { value: '57', text: 'Indian Ocean Eastern' },
+          { value: '58', text: 'Indian Ocean Antarctic and Southern' },
+          { value: '61', text: 'Pacific Northwest' },
+          { value: '67', text: 'Pacific Northeast' },
+          { value: '71', text: 'Pacific Western Central' },
+          { value: '77', text: 'Pacific Eastern Central' },
+          { value: '81', text: 'Pacific Southwest' },
+          { value: '87', text: 'Pacific Southeast' },
+          { value: '88', text: 'Pacific Antarctic' },
         ],
       },
     };
@@ -212,6 +212,9 @@ export default {
     ...mapActions('user', [
       'fetchState',
     ]),
+    ...mapActions('search', [
+      'searchUser',
+    ]),
     choose(clientType) {
       this.fetchState({ userType: clientType });
       this.$emit('update:didClientChooseType', true);
@@ -220,15 +223,16 @@ export default {
       this.$validator.validateAll()
         .then((validation) => {
           if (!validation || !this.searchInput) return;
-          const payload = {
+          const query = {
             searchInput: this.searchInput,
             searchCondition: this.searchCondition,
+            userType: this.userType,
           };
 
-          console.log(payload);
+          console.log(query);
+          this.searchUser(query);
         })
         .then(() => {
-          this.clearSearch();
           this.$router.push('/search/results');
         })
         .catch(error => console.error(error));

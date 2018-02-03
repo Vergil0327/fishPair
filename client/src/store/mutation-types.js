@@ -7,3 +7,5 @@ export const LOG_OUT = 'LOG_OUT';
 export const PUSH_USER_STATE = 'PUSH_USER_STATE';
 export const CLEAR_USER_STATE = 'CLEAR_USER_STATE';
 
+/* Search */
+export const FETCH_SEARCH_RESULTS = 'FETCH_SEARCH_RESULTS';
