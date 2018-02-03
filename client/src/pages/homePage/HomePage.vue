@@ -217,14 +217,17 @@ export default {
       this.$emit('update:didClientChooseType', true);
     },
     submitHandler() {
-      this.$validator.validateAll();
+      this.$validator.validateAll()
+        .then((validation) => {
+          if (!validation || !this.searchInput) return;
+          const payload = {
+            searchInput: this.searchInput,
+            searchCondition: this.searchCondition,
+          };
 
-      const payload = {
-        searchInput: this.searchInput,
-        searchCondition: this.searchCondition,
-      };
-
-      console.log(payload);
+          console.log(payload);
+        })
+        .catch(error => console.error(error));
     },
   },
 };
