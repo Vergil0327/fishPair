@@ -1,5 +1,5 @@
-import authApi from '@/api/auth';
 import jwt from 'jsonwebtoken';
+import authApi from '@/api/auth';
 import * as types from '../mutation-types';
 
 const initState = {
