@@ -49,7 +49,6 @@
               <v-list-tile-title>Edit Profile</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-        </v-list>
           <v-list-tile
             v-if="isLogin"
             @click.stop="logoutHandler"
@@ -61,6 +60,7 @@
               <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
+        </v-list>
       </v-navigation-drawer>
     </div>
 
