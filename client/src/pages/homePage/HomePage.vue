@@ -34,8 +34,8 @@
       <jumbotron v-if="!didClientChooseType" :title="slogan">
         <v-container fill-height fluid>
           <v-layout row wrap class="wrapper">
-            <v-flex d-flex xs6 @click.stop="choose('fisher')">
-              <v-card d-flex hover class="py-2 mr-2 card">
+            <v-flex d-flex xs12 sm6 class="py-2" @click.stop="choose('fisher')">
+              <v-card d-flex hover class="py-2 card">
                 <v-card-title primary-title>
                   <div class="fisher-content">
                     <h3 class="headline text-xs-center mb-0">Fisher</h3>
@@ -54,8 +54,8 @@
                 </v-card-title>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs6 @click.stop="choose('consultant')">
-              <v-card d-flex hover class="py-2 ml-2 card">
+            <v-flex d-flex xs12 sm6 class="py-2" @click.stop="choose('consultant')">
+              <v-card d-flex hover class="py-2 card">
                 <v-card-title primary-title>
                   <div class="consultant-content">
                     <h3 class="headline text-xs-center mb-0">Consultant</h3>
@@ -277,7 +277,7 @@ label {
   color: rgba(0,0,0,.54) !important;
 }
 .search-bar {
-  max-width: 70% !important;
+  // max-width: 70% !important;
 
   h1 {
     margin-bottom: 40px;
@@ -285,7 +285,7 @@ label {
 }
 
 .wrapper {
-  width: 690px;
+  // width: 690px;
 }
 
 .card__title {

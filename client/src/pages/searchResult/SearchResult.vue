@@ -35,7 +35,7 @@
                       <div v-if="user.species">Fishing Species: {{ user.species }}</div>
                       <div v-if="user.organization_name">Organization: {{ user.organization_name }}</div>
                       <div v-if="user.fip_stage">Fishery Improvement Project: {{ user.fip_stage }}</div>
-                      <div v-if="user.website">Fishery Improvement Project Website: {{ user.website }}</div>
+                      <div v-if="user.website" class="wordbreak">Fishery Improvement Project Website: <a> {{ user.website }} </a></div>
                       <!-- <br> -->
                       <!-- <div v-if="user.overview">Fishery Improvement Project Overview: {{ user.overview }}</div> -->
                     </div>
@@ -143,9 +143,13 @@ i {
 }
 
 .carousel {
-  width: 50%;
+  // width: 50%;
   margin: auto;
   box-shadow: none;
+}
+
+.wordbreak {
+  word-break: break-all;
 }
 
 </style>
