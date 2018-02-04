@@ -1,47 +1,54 @@
 <template>
-  <v-carousel hide-delimiters>
-    <v-carousel-item v-for="(user,i) in users" src="" :key="i">
-        <v-flex xs12>
-          <v-card>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">{{ user.firstName + ' ' + user.lastName }}</h3>
-                <div>E-Mail: {{ user.email }}</div>
-              </div>
-            </v-card-title>
-            <v-card-media
-              height="200px"
-              contain
-              :src="user.src"
-            ></v-card-media>
-          </v-card>
-        </v-flex>
-    </v-carousel-item>
-    <v-carousel-item v-for="(user,i) in userCarouselItems" src="" :key="i">
-        <v-flex xs12>
-          <v-card>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">{{ user.firstName + ' ' + user.lastName }}</h3>
-                <div>E-Mail: {{ user.email }}</div>
-                <div v-if="user.phone">Phone: {{ user.phone }}</div>
-                <div v-if="user.species">Fishing Species: {{ user.species }}</div>
-                <div v-if="user.organization_name">Organization: {{ user.organization_name }}</div>
-                <div v-if="user.fip_stage">Fishery Improvement Project: {{ user.fip_stage }}</div>
-                <div v-if="user.website">Fishery Improvement Project Website: {{ user.website }}</div>
-                <br>
-                <div v-if="user.overview">Fishery Improvement Project Overview: {{ user.overview }}</div>
-              </div>
-            </v-card-title>
-            <v-card-media
-              height="200px"
-              contain
-              :src="user.src || ''"
-            ></v-card-media>
-          </v-card>
-        </v-flex>
-    </v-carousel-item>
-  </v-carousel>
+  <v-container>
+    <v-layout row justify-center>
+      <v-flex xs12>
+        <h1>Serach Results</h1>
+        <v-carousel hide-delimiters light>
+          <v-carousel-item v-for="(user,i) in users" src="" :key="i">
+              <v-flex xs12>
+                <v-card>
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0">{{ user.firstName + ' ' + user.lastName }}</h3>
+                      <div>E-Mail: {{ user.email }}</div>
+                    </div>
+                  </v-card-title>
+                  <v-card-media
+                    height="200px"
+                    contain
+                    :src="user.src"
+                  ></v-card-media>
+                </v-card>
+              </v-flex>
+          </v-carousel-item>
+          <v-carousel-item v-for="(user,i) in userCarouselItems" src="" :key="i">
+              <v-flex xs12>
+                <v-card>
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0">{{ user.firstName + ' ' + user.lastName }}</h3>
+                      <div>E-Mail: {{ user.email }}</div>
+                      <div v-if="user.phone">Phone: {{ user.phone }}</div>
+                      <div v-if="user.species">Fishing Species: {{ user.species }}</div>
+                      <div v-if="user.organization_name">Organization: {{ user.organization_name }}</div>
+                      <div v-if="user.fip_stage">Fishery Improvement Project: {{ user.fip_stage }}</div>
+                      <div v-if="user.website">Fishery Improvement Project Website: {{ user.website }}</div>
+                      <br>
+                      <div v-if="user.overview">Fishery Improvement Project Overview: {{ user.overview }}</div>
+                    </div>
+                  </v-card-title>
+                  <v-card-media
+                    height="200px"
+                    contain
+                    :src="user.src || ''"
+                  ></v-card-media>
+                </v-card>
+              </v-flex>
+          </v-carousel-item>
+        </v-carousel>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -103,3 +110,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+i {
+  color: black;
+}
+
+.carousel {
+  width: 50%;
+  margin: auto;
+  box-shadow: none;
+}
+
+</style>

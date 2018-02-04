@@ -31,3 +31,8 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+h1 {
+  color: #0D2C54;
+}
+</style>

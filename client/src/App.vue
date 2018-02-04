@@ -1,6 +1,6 @@
 <template>
-  <v-app id="app" dark>
-    <nav-bar :didClientChooseType.sync="didClientChooseType" toolbarTitle="<>< Fisher Pair" />
+  <v-app id="app">
+    <nav-bar :didClientChooseType.sync="didClientChooseType" toolbarTitle="<>< FisherPair" />
 
     <v-content>
       <v-container fluid fill-height>
@@ -66,5 +66,14 @@ export default {
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-size: 16px;
+  background: #e9eff1;
+}
+
+footer.footer {
+  background: #00bcd4 !important;
+  display: flex;
+  justify-content: center;
+  color: #F2F7F2;
+  font-weight: 500;
 }
 </style>

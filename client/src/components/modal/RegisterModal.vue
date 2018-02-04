@@ -1,7 +1,7 @@
 <template>
    <v-layout row justify-center>
-    <v-dialog v-model="shouldShowDialog" persistent max-width="500px">
-      <v-card>
+    <v-dialog v-model="shouldShowDialog" persistent max-width="450px">
+      <v-card >
         <v-card-title>
           <span class="headline">User Profile</span>
         </v-card-title>
@@ -12,10 +12,10 @@
                   xs12 class="py-2"
                 >
                   <v-btn-toggle v-model="type">
-                    <v-btn flat value="fisher" @click="chooseUserType('fisher')">
+                    <v-btn flat value="fisher" @click="chooseUserType('fisher')" class="type-btn">
                       Fisher
                     </v-btn>
-                    <v-btn flat value="consultant" @click="chooseUserType('consultant')">
+                    <v-btn flat value="consultant" @click="chooseUserType('consultant')" class="type-btn">
                       Consultant
                     </v-btn>
                   </v-btn-toggle>
@@ -198,3 +198,18 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.card {
+  background-color: #e9eff1;
+  color: #0D2C54;
+
+  .headline {
+    font-weight: 500;
+  }
+
+  button.type-btn {
+    background-color: #0D2C54 !important;
+    color: white !important;
+  }
+}
+</style>

@@ -27,7 +27,7 @@
               <v-list-tile-title>Signup</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile 
+          <v-list-tile
             v-if="!isLogin"
             @click.stop="showDialog('Login')"
           >
@@ -149,6 +149,44 @@ export default {
 <style lang="scss" scoped>
   .onHover {
     cursor: pointer;
+  }
+  nav.toolbar {
+    background-color: #00bcd4;
+
+    .toolbar__title {
+      font-weight: 840;
+      color: #F2F7F2;
+      margin: 0 10px !important;
+    }
+
+    i {
+      color: #F2F7F2 !important;
+    }
+  }
+  aside {
+    background-color: #00a4b9 !important;
+
+    i {
+      color: #F2F7F2 !important;
+    }
+
+    li {
+      padding: 0 10px;
+
+      a {
+        display: block;
+        border-bottom: 1px solid #F2F7F2;
+      }
+    }
+
+    .list__tile__action, .list__tile__content {
+      border-bottom: 1px solid #F2F7F2;
+    }
+
+    .list__tile__title {
+      color: #F2F7F2 !important;
+      font-size: 17px;
+    }
   }
 </style>
 
