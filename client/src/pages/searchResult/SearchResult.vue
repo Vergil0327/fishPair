@@ -29,6 +29,9 @@
                       <h3 class="headline mb-0">{{ user.firstName + ' ' + user.lastName }}</h3>
                       <div>E-Mail: {{ user.email }}</div>
                       <div v-if="user.phone">Phone: {{ user.phone }}</div>
+                      <div v-if="user.tag.length > 0">
+                        Experienced: <span v-for="(tagItem, i) in user.tag" :key="i"> {{ tagItem }} </span>
+                      </div>
                       <div v-if="user.species">Fishing Species: {{ user.species }}</div>
                       <div v-if="user.organization_name">Organization: {{ user.organization_name }}</div>
                       <div v-if="user.fip_stage">Fishery Improvement Project: {{ user.fip_stage }}</div>
@@ -56,14 +59,16 @@ import { mapGetters } from 'vuex';
 import alanPhotoSticker from '@/assets/photoStickers/alan.jpg';
 import lionelPhotoSticker from '@/assets/photoStickers/lionel.jpg';
 import vergilPhotoSticker from '@/assets/photoStickers/vergil.jpg';
+import consultantPhotoSticker from '@/assets/photoStickers/Tommaso_Giarrizzo.jpg';
+import defaultImage from '@/assets/photoStickers/defaultImage.png';
 
 export default {
   name: 'searchResult',
   data: () => ({
     users: [
-      { firstName: 'Vergil', lastName: 'Wang', email: 'test@example.com', src: vergilPhotoSticker },
-      { firstName: 'Lionel', lastName: 'Chen', email: 'test@example.com', src: lionelPhotoSticker },
-      { firstName: 'Alan', lastName: 'Yeh', email: 'test@example.com', src: alanPhotoSticker },
+      { firstName: 'Vergil', lastName: 'Wang', email: 'test@example.com', tag: ['example'], src: vergilPhotoSticker },
+      { firstName: 'Lionel', lastName: 'Chen', email: 'test@example.com', tag: ['example'], src: lionelPhotoSticker },
+      { firstName: 'Alan', lastName: 'Yeh', email: 'test@example.com', tag: ['example'], src: alanPhotoSticker },
     ],
     fishingAreas: [
       { value: '18', text: 'Arctic Sea' },
@@ -104,10 +109,27 @@ export default {
       if (this.searchResults.unRegisterData) {
         caroucelItems = [...caroucelItems, ...this.searchResults.unRegisterData];
       }
+
+
       caroucelItems = [
         ...caroucelItems,
-        // { user data }
+        ...this.users,
+        {
+          firstName: 'Tommaso',
+          lastName: 'Giarrizzo',
+          email: '',
+          website: 'https://www.researchgate.net/profile/Tommaso_Giarrizzo',
+          src: consultantPhotoSticker,
+          tag: ['Zoology', 'Marine Biology', 'Ecolog'],
+        },
       ];
+
+      caroucelItems = caroucelItems.map((item) => {
+        const copy = item;
+        if (!copy.src) copy.src = defaultImage;
+
+        return copy;
+      });
       console.log('caroucelItems', caroucelItems);
       return caroucelItems;
     },
