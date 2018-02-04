@@ -1,6 +1,6 @@
 <template>
   <v-container
-    class="text-xs-center" fluid
+    class="text-xs-center search-bar" fluid
   >
     <h1>{{ msg }}</h1>
     <v-layout v-if="didClientChooseType" row>
@@ -13,7 +13,6 @@
           :items="inputOptions"
           autofocus
           autocomplete
-          dark
         ></v-select>
       </v-flex>
       <v-flex xs3>
@@ -26,7 +25,6 @@
           v-validate="'required'"
           data-vv-name="Search Condition"
           label="Conditions"
-          dark
           required
         ></v-select>
       </v-flex>
@@ -35,21 +33,21 @@
     </v-layout>
       <jumbotron v-if="!didClientChooseType" :title="slogan">
         <v-container fill-height fluid>
-          <v-layout row wrap>
+          <v-layout row wrap class="wrapper">
             <v-flex d-flex xs6 @click.stop="choose('fisher')">
-              <v-card d-flex hover class="py-2 mr-1">
+              <v-card d-flex hover class="py-2 mr-2 card">
                 <v-card-title primary-title>
-                  <div>
+                  <div class="fisher-content">
                     <h3 class="headline text-xs-center mb-0">Fisher</h3>
-                    <div class="text-xs-left">
+                    <div class="text-xs-left text">
                       <v-flex xs12>
-                        <v-icon>check</v-icon><span>I need MSC certificate assistance</span>
+                        <v-icon>check</v-icon><span> Need MSC Certificate Assistance</span>
                       </v-flex>
                       <v-flex xs12>
-                        <v-icon>check</v-icon><span>I need suggestion on fishery practice</span>
+                        <v-icon>check</v-icon><span> Need Suggestion on Fishery Practice</span>
                       </v-flex>
                       <v-flex xs12>
-                        <v-icon>check</v-icon><span>I can offer fishery experience</span>
+                        <v-icon>check</v-icon><span> Offer Fishery Experience</span>
                       </v-flex>
                     </div>
                   </div>
@@ -57,19 +55,19 @@
               </v-card>
             </v-flex>
             <v-flex d-flex xs6 @click.stop="choose('consultant')">
-              <v-card d-flex hover class="py-2 mr-1">
+              <v-card d-flex hover class="py-2 ml-2 card">
                 <v-card-title primary-title>
-                  <div>
+                  <div class="consultant-content">
                     <h3 class="headline text-xs-center mb-0">Consultant</h3>
-                    <div class="text-xs-left">
+                    <div class="text-xs-left text">
                       <v-flex xs12>
-                        <v-icon>check</v-icon><span>I do research on fishery</span>
+                        <v-icon>check</v-icon><span> Offer MSC Certificate Assistance</span>
                       </v-flex>
                       <v-flex xs12>
-                        <v-icon>check</v-icon><span>I can offer MSC certificate assistance</span>
+                        <v-icon>check</v-icon><span> Do Research on Fishery</span>
                       </v-flex>
                       <v-flex xs12>
-                        <v-icon>check</v-icon><span>I participate in FIP</span>
+                        <v-icon>check</v-icon><span> Participate in FIP</span>
                       </v-flex>
                     </div>
                   </div>
@@ -245,6 +243,55 @@ export default {
 <style lang="scss" scoped>
 .toggleBtn__large {
   height: 100%;
+}
+h1 {
+  color: #0D2C54;
+}
+.card {
+  background: #F2F7F2;
+  color: #0D2C54;
+  border-radius: 6px;
+
+  h3 {
+    color: #ea6a66;
+    font-weight: 500;
+    font-size: 30px !important;
+  }
+
+  .text {
+    margin-top: 15px;
+
+    > div {
+      margin-bottom: 5px;
+    }
+  }
+}
+i {
+  color: #ea6a66 !important;
+}
+label {
+  color: rgba(0,0,0,.54) !important;
+}
+.search-bar {
+  max-width: 70% !important;
+
+  h1 {
+    margin-bottom: 40px;
+  }
+}
+
+.wrapper {
+  width: 690px;
+}
+
+.card__title {
+  > .fisher-content {
+    margin-left: 7px;
+  }
+
+  > .consultant-content {
+    margin-left: 19px;
+  }
 }
 </style>
 

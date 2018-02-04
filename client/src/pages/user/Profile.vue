@@ -1,14 +1,14 @@
 <template>
         <form>
   <v-container>
-      <v-layout row wrap>
+      <v-layout row wrap class="profile">
           <h1>User Profile</h1>
           <v-flex xs12>
             <v-btn-toggle v-model="userType">
-              <v-btn flat value="fisher">
+              <v-btn flat value="fisher" class="type-btn">
                 Fisher
               </v-btn>
-              <v-btn flat value="consultant">
+              <v-btn flat value="consultant" class="type-btn">
                 Consultant
               </v-btn>
             </v-btn-toggle>
@@ -121,7 +121,6 @@
               label="Experience, Or Tell Some Problems You Got !"
               hint="Briefly States Your Experience Or Query 😊"
               multi-line
-              dark
             ></v-text-field>
           </v-flex>
           <v-flex>
@@ -250,8 +249,22 @@ export default {
     },
   },
   created() {
-    if (!this.isLogin) this.$router.push('/');
+    // if (!this.isLogin) this.$router.push('/');
   },
 };
 </script>
 
+<style lang="scss" scoped>
+.profile {
+  padding: 0 130px;
+
+  h1 {
+    margin-bottom: 30px;
+  }
+}
+
+button.type-btn {
+    background-color: #0D2C54 !important;
+    color: #e9eff1 !important;
+  }
+</style>

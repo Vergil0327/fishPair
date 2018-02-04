@@ -1,6 +1,6 @@
 <template>
    <v-layout row justify-center>
-    <v-dialog v-model="shouldShowDialog" persistent max-width="500px">
+    <v-dialog v-model="shouldShowDialog" persistent max-width="400px">
       <v-card>
         <v-card-title>
           <span class="headline">Login</span>
@@ -26,7 +26,7 @@
               </v-flex>
             </v-layout>
           </v-container>
-          <small>*indicates required field</small>
+          <small>* indicates required field</small>
           <v-alert v-model="alert" outline color="error" icon="warning" :value="true">
             {{ errorMessage }}
           </v-alert>
@@ -106,3 +106,13 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.card {
+  background-color: #e9eff1;
+  color: #0D2C54;
+
+  .headline {
+    font-weight: 500;
+  }
+}
+</style>
